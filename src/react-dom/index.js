@@ -1,7 +1,11 @@
-const createDom = element => {
+function createHTMLElement(type) {
+  return document.createElement(type)
+}
+
+function renderHostComponent(element) {
   const { type, props } = element
   const { children, config = {} } = props
-  const dom = document.createElement(type)
+  const dom = createHTMLElement(type)
   for (let key in config) {
     dom[key] = config[key]
   }
@@ -12,8 +16,14 @@ const createDom = element => {
   return dom
 }
 
+function renderElement(element) {
+  if (typeof element.type === 'string') {
+    return renderHostComponent(element)
+  }
+}
+
 const render = (element, container, callback) => {
-  container.parentNode.replaceChild(createDom(element), container)
+  container.parentNode.replaceChild(renderElement(element), container)
 }
 
 exports.render = render
