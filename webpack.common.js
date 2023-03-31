@@ -7,6 +7,12 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
+  resolve: {
+    alias: {
+      react: path.resolve(__dirname, './src/react/index.js'),
+      'react-dom': path.resolve(__dirname, './src/react-dom/index.js'),
+    },
+  },
   module: {
     rules: [
       {
