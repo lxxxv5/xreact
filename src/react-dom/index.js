@@ -16,10 +16,19 @@ function renderHostComponent(element) {
   return dom
 }
 
+function renderFunctionComponent(element) {
+  const result = element.type()
+  return renderHostComponent(result)
+}
+
 function renderElement(element) {
   if (typeof element.type === 'string') {
     return renderHostComponent(element)
   }
+  if (typeof element.type === 'function') {
+    return renderFunctionComponent(element)
+  }
+  return null
 }
 
 const render = (element, container, callback) => {
