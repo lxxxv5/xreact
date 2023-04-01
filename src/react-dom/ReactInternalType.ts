@@ -1,3 +1,5 @@
+import { Flags } from './ReactFiberFlags'
+
 export type Update<State> = {
   tag: 0 | 1 | 2 | 3
   payload: any
@@ -26,4 +28,6 @@ export type Fiber = {
   memoizedProps: any
   updateQueue: UpdateQueue
   child: Fiber | null
+  flags: Flags
+  return: Fiber | null
 }

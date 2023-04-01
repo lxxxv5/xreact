@@ -1,4 +1,6 @@
+import { ReactElementType } from '../shared/ReactElementType'
 import { Fiber } from './ReactInternalType'
+import { HostComponent } from './ReactWorkTags'
 
 function FiberNode(this: Fiber, tag) {
   this.tag = tag
@@ -11,11 +13,11 @@ function FiberNode(this: Fiber, tag) {
   this.child = null
 }
 
-function createFiber(tag) {
+function createFiber(tag): Fiber {
   return new FiberNode(tag)
 }
 
-function createHostRootFiber(tag) {
+function createHostRootFiber(tag): Fiber {
   return createFiber(tag)
 }
 
@@ -28,4 +30,21 @@ function createWorkInProgress(current) {
   return workInProgress
 }
 
-export { createHostRootFiber, createWorkInProgress }
+function createFiberFromTypeAndProps(type: any, pendingProps: any): Fiber {
+  let fiberTag
+  if (typeof type === 'string') {
+    fiberTag = HostComponent
+  }
+  const fiber = createFiber(fiberTag)
+  fiber.type = type
+  return fiber
+}
+
+function createFiberFromElement(element: ReactElementType) {
+  const type = element.type
+  const pendingProps = element.props
+  const fiber = createFiberFromTypeAndProps(type, pendingProps)
+  return fiber
+}
+
+export { createHostRootFiber, createWorkInProgress, createFiberFromElement }

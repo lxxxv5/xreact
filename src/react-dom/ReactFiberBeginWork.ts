@@ -1,3 +1,4 @@
+import { mountChildFibers, reconcileChildFibers } from './ReactChildFiber'
 import { processUpdateQueue } from './ReactFiberClassUpdate'
 import type { Fiber } from './ReactInternalType'
 import { HostRoot } from './ReactWorkTags'
@@ -6,7 +7,17 @@ function reconcileChildren(
   current: Fiber,
   workInProgress: Fiber,
   nextChildren: any
-) {}
+) {
+  if (current === null) {
+    // workInProgress.child = mountChildFibers()
+  } else {
+    workInProgress.child = reconcileChildFibers(
+      workInProgress,
+      current.child,
+      nextChildren
+    )
+  }
+}
 
 function updateHostRoot(current: Fiber, workInProgress: Fiber) {
   processUpdateQueue(workInProgress)
