@@ -33,6 +33,7 @@ function beginWork(current: Fiber, workInProgress: Fiber) {
     case HostRoot:
       return updateHostRoot(current, workInProgress)
   }
+  return null
 }
 
 export { beginWork }

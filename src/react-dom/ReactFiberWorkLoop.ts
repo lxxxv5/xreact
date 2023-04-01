@@ -1,19 +1,23 @@
 import { createWorkInProgress } from './ReactFiber'
 import { beginWork } from './ReactFiberBeginWork'
-import { Fiber } from './ReactInternalType'
 
 let workInProgressRoot = null
 let workInProgress = null
 
 function performUnitOfWork(unitOfWork) {
   const current = unitOfWork.alternate
-  beginWork(current, unitOfWork)
+  const next = beginWork(current, unitOfWork)
+  if (next === null) {
+    workInProgress = null
+  } else {
+    workInProgress = next
+  }
 }
 
 function workLoopSync() {
-  // while (workInProgress !== null) {
-  performUnitOfWork(workInProgress)
-  // }
+  while (workInProgress !== null) {
+    performUnitOfWork(workInProgress)
+  }
 }
 
 function renderRootSync(root) {
