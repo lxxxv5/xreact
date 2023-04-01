@@ -10,6 +10,7 @@ export type SharedQueue = {
 }
 
 export type UpdateQueue = {
+  baseState: any
   firstBaseUpdate: Update<any> | null
   lastBaseUpdate: Update<any> | null
   shared: SharedQueue

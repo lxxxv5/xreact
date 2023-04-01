@@ -24,6 +24,7 @@ function createWorkInProgress(current) {
   workInProgress.alternate = current
   current.alternate = workInProgress
   workInProgress.memoizedState = current.memoizedState
+  workInProgress.updateQueue = current.updateQueue
   return workInProgress
 }
 

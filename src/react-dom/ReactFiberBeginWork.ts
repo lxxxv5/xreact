@@ -2,11 +2,18 @@ import { processUpdateQueue } from './ReactFiberClassUpdate'
 import type { Fiber } from './ReactInternalType'
 import { HostRoot } from './ReactWorkTags'
 
-// function reconcileChildren() {}
+function reconcileChildren(
+  current: Fiber,
+  workInProgress: Fiber,
+  nextChildren: any
+) {}
 
 function updateHostRoot(current: Fiber, workInProgress: Fiber) {
-  const nextState = workInProgress.memoizedState
   processUpdateQueue(workInProgress)
+  const nextState = workInProgress.memoizedState
+  const nextChildren = nextState.element
+
+  reconcileChildren(current, workInProgress, nextChildren)
   return workInProgress.child
 }
 
