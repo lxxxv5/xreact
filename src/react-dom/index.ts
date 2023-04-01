@@ -46,9 +46,8 @@ function createRootFromDOMContainer(container, children) {
   return root
 }
 
-const render = (element, container) => {
-  root = createRootFromDOMContainer(container, element)
-  console.log(root)
+function render(element, container) {
+  const root = createRootFromDOMContainer(container, element)
   return root
 }
 

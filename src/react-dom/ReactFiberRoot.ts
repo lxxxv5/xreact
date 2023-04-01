@@ -1,5 +1,6 @@
 import { createHostRootFiber } from './ReactFiber'
 import { initializeUpdateQueue } from './ReactFiberClassUpdateQueue'
+import { HostRoot } from './ReactWorkTags'
 
 function FiberRootNode(containerInfo, tag) {
   this.containerInfo = containerInfo
@@ -9,7 +10,7 @@ function FiberRootNode(containerInfo, tag) {
 
 function createFiberRoot(container, tag) {
   const root = new FiberRootNode(container, tag)
-  const uninitializedFiber = createHostRootFiber(tag)
+  const uninitializedFiber = createHostRootFiber(HostRoot)
   root.current = uninitializedFiber
   uninitializedFiber.stateNode = root
 

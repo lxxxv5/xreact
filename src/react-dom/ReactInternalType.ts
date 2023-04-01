@@ -4,4 +4,6 @@ export type Fiber = {
   stateNode: any
   memoizedState: any
   alternate: Fiber | null
+  pendingProps: any
+  memoizedProps: any
 }

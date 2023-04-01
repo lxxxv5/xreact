@@ -9,8 +9,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      react: path.resolve(__dirname, './src/react/index.js'),
-      'react-dom': path.resolve(__dirname, './src/react-dom/index.js'),
+      react: path.resolve(__dirname, './src/react/index'),
+      'react-dom': path.resolve(__dirname, './src/react-dom/index'),
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
