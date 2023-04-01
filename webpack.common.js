@@ -12,11 +12,12 @@ module.exports = {
       react: path.resolve(__dirname, './src/react/index.js'),
       'react-dom': path.resolve(__dirname, './src/react-dom/index.js'),
     },
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: [/\.jsx?$/, /\.tsx?$/],
         exclude: /node_modules/,
         use: [
           {

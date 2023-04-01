@@ -1,8 +1,8 @@
 import React from 'react'
-import ReactDom from 'react-dom'
+import ReactDOM from 'react-dom'
 
 function App() {
   return <div id="#app">888</div>
 }
 
-ReactDom.render(<App />, document.querySelector('#app'))
+ReactDOM.render(<App />, document.querySelector('#app'))
