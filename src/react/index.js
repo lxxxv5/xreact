@@ -1,4 +1,4 @@
-const { ReactElement } = require('./ReactElement')
+import { ReactElement } from './ReactElement'
 
 const createElement = (type, config, children) => {
   const props = { children, config }
@@ -6,4 +6,6 @@ const createElement = (type, config, children) => {
   return ReactElement(type, props)
 }
 
-exports.createElement = createElement
+export { createElement }
+
+export default { createElement }

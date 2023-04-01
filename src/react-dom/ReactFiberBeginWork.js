@@ -1,3 +1,3 @@
 function beginWork(current, workInProgress) {}
 
-exports.beginWork = beginWork
+export { beginWork }

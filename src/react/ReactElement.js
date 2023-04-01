@@ -4,4 +4,4 @@ function ReactElement(type, props) {
   return element
 }
 
-exports.ReactElement = ReactElement
+export { ReactElement }

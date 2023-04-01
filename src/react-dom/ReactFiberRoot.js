@@ -1,5 +1,5 @@
-const { createHostRootFiber } = require('./ReactFiber')
-const { initializeUpdateQueue } = require('./ReactFiberClassUpdateQueue')
+import { createHostRootFiber } from './ReactFiber'
+import { initializeUpdateQueue } from './ReactFiberClassUpdateQueue'
 
 function FiberRootNode(containerInfo, tag) {
   this.containerInfo = containerInfo
@@ -23,4 +23,4 @@ function createFiberRoot(container, tag) {
   return root
 }
 
-exports.createFiberRoot = createFiberRoot
+export { createFiberRoot }

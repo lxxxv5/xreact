@@ -20,5 +20,4 @@ function createWorkInProgress(current) {
   current.alternate = workInProgress
 }
 
-exports.createHostRootFiber = createHostRootFiber
-exports.createWorkInProgress = createWorkInProgress
+export { createHostRootFiber, createWorkInProgress }

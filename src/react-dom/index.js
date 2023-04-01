@@ -1,5 +1,5 @@
-const { createFiberRoot } = require('./ReactFiberRoot')
-const { performSyncWorkOnRoot } = require('./ReactFiberWorkLoop')
+import { createFiberRoot } from './ReactFiberRoot'
+import { performSyncWorkOnRoot } from './ReactFiberWorkLoop'
 
 const LegacyRoot = 0
 
@@ -52,4 +52,5 @@ const render = (element, container) => {
   return root
 }
 
-exports.render = render
+export { render }
+export default { render }

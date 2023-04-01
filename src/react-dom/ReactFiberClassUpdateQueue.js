@@ -12,4 +12,4 @@ function initializeUpdateQueue(fiber) {
   fiber.updateQueue = queue
 }
 
-exports.initializeUpdateQueue = initializeUpdateQueue
+export { initializeUpdateQueue }

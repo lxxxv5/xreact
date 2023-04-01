@@ -1,5 +1,5 @@
-const { createWorkInProgress } = require('./ReactFiber')
-const { beginWork } = require('./ReactFiberBeginWork')
+import { createWorkInProgress } from './ReactFiber'
+import { beginWork } from './ReactFiberBeginWork'
 
 let workInProgressRoot = null
 let workInProgress = null
@@ -28,4 +28,4 @@ function performSyncWorkOnRoot(root) {
   commitRoot(root)
 }
 
-exports.performSyncWorkOnRoot = performSyncWorkOnRoot
+export { performSyncWorkOnRoot }
