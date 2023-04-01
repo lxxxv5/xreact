@@ -1,11 +1,12 @@
-function initializeUpdateQueue(fiber) {
+import { Fiber } from './ReactInternalType'
+
+function initializeUpdateQueue(fiber: Fiber) {
   const queue = {
     baseState: fiber.memoizedState,
     firstBaseUpdate: null,
     lastBaseUpdate: null,
     shared: {
       pending: null,
-      hiddenCallbacks: null,
     },
     callbacks: null,
   }
