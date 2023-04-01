@@ -4,11 +4,15 @@ import { beginWork } from './ReactFiberBeginWork'
 let workInProgressRoot = null
 let workInProgress = null
 
+function completeUnitOfWork() {
+  workInProgress = null
+}
+
 function performUnitOfWork(unitOfWork) {
   const current = unitOfWork.alternate
   const next = beginWork(current, unitOfWork)
   if (next === null) {
-    workInProgress = null
+    completeUnitOfWork()
   } else {
     workInProgress = next
   }

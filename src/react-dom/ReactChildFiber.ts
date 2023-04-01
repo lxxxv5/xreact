@@ -31,9 +31,12 @@ function createChildReconciler(shouldTrackSideEffects: boolean) {
     currentFirstChild: Fiber | null,
     newChild: any
   ): Fiber | null {
-    return placeSingleChild(
-      reconcileSingleElement(returnFiber, currentFirstChild, newChild)
-    )
+    if (typeof newChild === 'object' && newChild !== null) {
+      return placeSingleChild(
+        reconcileSingleElement(returnFiber, currentFirstChild, newChild)
+      )
+    }
+    return null
   }
   return reconcileChildFibers
 }
