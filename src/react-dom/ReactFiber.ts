@@ -11,6 +11,8 @@ function FiberNode(this: Fiber, tag, pendingProps: any) {
   this.pendingProps = pendingProps
   this.memoizedProps = null
   this.child = null
+  this.return = null
+  this.sibling = null
 }
 
 function createFiber(tag, pendingProps): Fiber {

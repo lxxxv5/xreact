@@ -7,9 +7,22 @@ let workInProgressRoot: FiberRoot | null = null
 let workInProgress: Fiber | null = null
 
 function completeUnitOfWork(unitOfWork: Fiber) {
-  const completedWork = unitOfWork
-  const next = completeWork(completedWork.alternate, completedWork)
-  workInProgress = null
+  let completedWork = unitOfWork
+  do {
+    const next = completeWork(completedWork.alternate, completedWork)
+    const siblingFiber = completedWork.sibling
+    const returnFiber = completedWork.return
+    if (next !== null) {
+      workInProgress = next
+      return
+    }
+    if (siblingFiber !== null) {
+      workInProgress = siblingFiber
+      return
+    }
+    completedWork = returnFiber
+    workInProgress = completedWork
+  } while (completedWork !== null)
 }
 
 function performUnitOfWork(unitOfWork: Fiber) {

@@ -30,6 +30,7 @@ export type Fiber = {
   child: Fiber | null
   flags: Flags
   return: Fiber | null
+  sibling: Fiber | null
 }
 
 export type FiberRoot = {
