@@ -31,3 +31,9 @@ export type Fiber = {
   flags: Flags
   return: Fiber | null
 }
+
+export type FiberRoot = {
+  containerInfo: HTMLElement
+  tag: string
+  current: Fiber | null
+}

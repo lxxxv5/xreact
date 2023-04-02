@@ -1,10 +1,10 @@
 import { createWorkInProgress } from './ReactFiber'
 import { beginWork } from './ReactFiberBeginWork'
 import { completeWork } from './ReactFiberCompleteWork'
-import { Fiber } from './ReactInternalType'
+import { Fiber, FiberRoot } from './ReactInternalType'
 
-let workInProgressRoot = null
-let workInProgress = null
+let workInProgressRoot: FiberRoot | null = null
+let workInProgress: Fiber | null = null
 
 function completeUnitOfWork(unitOfWork: Fiber) {
   const completedWork = unitOfWork
@@ -28,15 +28,15 @@ function workLoopSync() {
   }
 }
 
-function renderRootSync(root) {
+function renderRootSync(root: FiberRoot) {
   workInProgressRoot = root
   const rootWorkInProgress = createWorkInProgress(root.current, null)
   workInProgress = rootWorkInProgress
   workLoopSync()
 }
-function commitRoot(root) {}
+function commitRoot(root: FiberRoot) {}
 
-function performSyncWorkOnRoot(root) {
+function performSyncWorkOnRoot(root: FiberRoot) {
   renderRootSync(root)
   commitRoot(root)
 }
