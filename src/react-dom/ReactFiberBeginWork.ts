@@ -1,7 +1,12 @@
 import { mountChildFibers, reconcileChildFibers } from './ReactChildFiber'
 import { processUpdateQueue } from './ReactFiberClassUpdate'
 import type { Fiber } from './ReactInternalType'
-import { HostComponent, HostRoot } from './ReactWorkTags'
+import {
+  FunctionComponent,
+  HostComponent,
+  HostRoot,
+  IndeterminateComponent,
+} from './ReactWorkTags'
 
 function reconcileChildren(
   current: Fiber,
@@ -16,6 +21,25 @@ function reconcileChildren(
       current.child,
       nextChildren
     )
+  }
+}
+
+function mountIndeterminateComponent(
+  workInProgress: Fiber,
+  Component: Function
+) {
+  const props = workInProgress.pendingProps
+  const value = Component(props)
+  if (
+    typeof value === 'object' &&
+    value !== null &&
+    typeof value.render === 'function'
+  ) {
+    //
+  } else {
+    workInProgress.tag = FunctionComponent
+    reconcileChildren(null, workInProgress, value)
+    return workInProgress.child
   }
 }
 
@@ -35,6 +59,8 @@ function updateHostComponent(current: Fiber, workInProgress: Fiber) {
 
 function beginWork(current: Fiber, workInProgress: Fiber) {
   switch (workInProgress.tag) {
+    case IndeterminateComponent:
+      return mountIndeterminateComponent(workInProgress, workInProgress.type)
     case HostRoot:
       return updateHostRoot(current, workInProgress)
     case HostComponent:

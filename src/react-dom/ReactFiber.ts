@@ -1,6 +1,6 @@
 import { ReactElementType } from '../shared/ReactElementType'
 import { Fiber } from './ReactInternalType'
-import { HostComponent } from './ReactWorkTags'
+import { HostComponent, IndeterminateComponent } from './ReactWorkTags'
 
 function FiberNode(this: Fiber, tag, pendingProps: any) {
   this.tag = tag
@@ -34,7 +34,7 @@ function createWorkInProgress(current: Fiber, pendingProps: any) {
 }
 
 function createFiberFromTypeAndProps(type: any, pendingProps: any): Fiber {
-  let fiberTag
+  let fiberTag = IndeterminateComponent
   if (typeof type === 'string') {
     fiberTag = HostComponent
   }
