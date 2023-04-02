@@ -1,10 +1,10 @@
 import {
   createInstance,
   finalizeInitialChildren,
-  Instance,
+  // Instance,
 } from './ReactDomHostConfig'
 import { Fiber } from './ReactInternalType'
-import { HostComponent } from './ReactWorkTags'
+import { HostComponent, HostRoot } from './ReactWorkTags'
 
 // function appendAllChildren(parent: Instance, workInProgress: Fiber) {}
 
@@ -14,6 +14,8 @@ function completeWork(
 ): Fiber | null {
   const newProps = workInProgress.pendingProps
   switch (workInProgress.tag) {
+    case HostRoot:
+      return null
     case HostComponent:
       const type = workInProgress.type
       const instance = createInstance(type)
