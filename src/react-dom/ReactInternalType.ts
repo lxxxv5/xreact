@@ -37,4 +37,5 @@ export type FiberRoot = {
   containerInfo: HTMLElement
   tag: string
   current: Fiber | null
+  finishedWork: Fiber | null
 }

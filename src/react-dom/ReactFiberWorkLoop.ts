@@ -1,5 +1,6 @@
 import { createWorkInProgress } from './ReactFiber'
 import { beginWork } from './ReactFiberBeginWork'
+import { commitMutationEffects } from './ReactFiberCommitWork'
 import { completeWork } from './ReactFiberCompleteWork'
 import { Fiber, FiberRoot } from './ReactInternalType'
 
@@ -46,11 +47,20 @@ function renderRootSync(root: FiberRoot) {
   const rootWorkInProgress = createWorkInProgress(root.current, null)
   workInProgress = rootWorkInProgress
   workLoopSync()
+
+  workInProgressRoot = null
 }
-function commitRoot(root: FiberRoot) {}
+
+function commitRoot(root: FiberRoot) {
+  const finishedWork = root.finishedWork
+  root.finishedWork = null
+
+  commitMutationEffects(root, finishedWork)
+}
 
 function performSyncWorkOnRoot(root: FiberRoot) {
   renderRootSync(root)
+  root.finishedWork = root.current.alternate
   commitRoot(root)
 }
 

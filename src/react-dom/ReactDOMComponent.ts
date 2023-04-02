@@ -16,6 +16,7 @@ function setProp(
   switch (key) {
     case 'children':
       setTextContent(domElement, value)
+      break
   }
 }
 

@@ -23,8 +23,9 @@ function createHostRootFiber(tag): Fiber {
   return createFiber(tag, null)
 }
 
-function createWorkInProgress(current, pendingProps) {
+function createWorkInProgress(current: Fiber, pendingProps: any) {
   const workInProgress = createFiber(current.tag, pendingProps)
+  workInProgress.stateNode = current.stateNode
   workInProgress.alternate = current
   current.alternate = workInProgress
   workInProgress.memoizedState = current.memoizedState

@@ -10,4 +10,5 @@ module.exports = merge(common, {
     },
     port: 9000,
   },
+  devtool: 'source-map',
 })
