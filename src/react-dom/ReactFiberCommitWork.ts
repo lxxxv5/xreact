@@ -25,7 +25,13 @@ function insertOrAppendPlacementNodeIntoContainer(
   node: Fiber,
   parent: HTMLElement
 ) {
-  appendChildToContainer(parent, node.stateNode)
+  const tag = node.tag
+  const isHost = tag === HostComponent
+  if (isHost) {
+    appendChildToContainer(parent, node.stateNode)
+  } else {
+    insertOrAppendPlacementNodeIntoContainer(node.child, parent)
+  }
 }
 
 function commitPlacement(finishedWork: Fiber): void {
