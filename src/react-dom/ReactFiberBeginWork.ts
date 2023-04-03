@@ -2,6 +2,7 @@ import { mountChildFibers, reconcileChildFibers } from './ReactChildFiber'
 import { processUpdateQueue } from './ReactFiberClassUpdate'
 import type { Fiber } from './ReactInternalType'
 import {
+  ClassComponent,
   FunctionComponent,
   HostComponent,
   HostRoot,
@@ -43,6 +44,17 @@ function mountIndeterminateComponent(
   }
 }
 
+function updateClassComponent(
+  current: Fiber,
+  workInProgress: Fiber,
+  Component: any
+) {
+  const instance = new Component(workInProgress.pendingProps)
+  const nextChildren = instance.render()
+  reconcileChildren(current, workInProgress, nextChildren)
+  return workInProgress.child
+}
+
 function updateHostRoot(current: Fiber, workInProgress: Fiber) {
   processUpdateQueue(workInProgress)
   const nextState = workInProgress.memoizedState
@@ -61,6 +73,9 @@ function beginWork(current: Fiber, workInProgress: Fiber) {
   switch (workInProgress.tag) {
     case IndeterminateComponent:
       return mountIndeterminateComponent(workInProgress, workInProgress.type)
+    case ClassComponent:
+      const Component = workInProgress.type
+      return updateClassComponent(current, workInProgress, Component)
     case HostRoot:
       return updateHostRoot(current, workInProgress)
     case HostComponent:

@@ -1,6 +1,10 @@
 import { ReactElementType } from '../shared/ReactElementType'
 import { Fiber } from './ReactInternalType'
-import { HostComponent, IndeterminateComponent } from './ReactWorkTags'
+import {
+  ClassComponent,
+  HostComponent,
+  IndeterminateComponent,
+} from './ReactWorkTags'
 
 function FiberNode(this: Fiber, tag, pendingProps: any) {
   this.tag = tag
@@ -13,6 +17,11 @@ function FiberNode(this: Fiber, tag, pendingProps: any) {
   this.child = null
   this.return = null
   this.sibling = null
+}
+
+function shouldConstruct(Component) {
+  const prototype = Component.prototype
+  return !!(prototype && prototype.isReactComponent)
 }
 
 function createFiber(tag, pendingProps): Fiber {
@@ -35,7 +44,9 @@ function createWorkInProgress(current: Fiber, pendingProps: any) {
 
 function createFiberFromTypeAndProps(type: any, pendingProps: any): Fiber {
   let fiberTag = IndeterminateComponent
-  if (typeof type === 'string') {
+  if (typeof type === 'function' && shouldConstruct(type)) {
+    fiberTag = ClassComponent
+  } else if (typeof type === 'string') {
     fiberTag = HostComponent
   }
   const fiber = createFiber(fiberTag, pendingProps)

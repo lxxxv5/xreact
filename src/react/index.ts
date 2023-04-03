@@ -1,3 +1,4 @@
+import { Component } from './ReactBaseClasses'
 import { ReactElement } from './ReactElement'
 
 const createElement = (type, config, children) => {
@@ -6,6 +7,6 @@ const createElement = (type, config, children) => {
   return ReactElement(type, props)
 }
 
-export { createElement }
+export { createElement, Component }
 
-export default { createElement }
+export default { createElement, Component }
