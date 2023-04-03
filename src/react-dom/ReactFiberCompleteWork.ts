@@ -4,7 +4,12 @@ import {
   // Instance,
 } from './ReactDomHostConfig'
 import { Fiber } from './ReactInternalType'
-import { HostComponent, HostRoot } from './ReactWorkTags'
+import {
+  FunctionComponent,
+  HostComponent,
+  HostRoot,
+  IndeterminateComponent,
+} from './ReactWorkTags'
 
 // function appendAllChildren(parent: Instance, workInProgress: Fiber) {}
 
@@ -14,6 +19,9 @@ function completeWork(
 ): Fiber | null {
   const newProps = workInProgress.pendingProps
   switch (workInProgress.tag) {
+    case IndeterminateComponent:
+    case FunctionComponent:
+      return null
     case HostRoot:
       return null
     case HostComponent:

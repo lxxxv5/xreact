@@ -1,6 +1,6 @@
 import { Placement } from './ReactFiberFlags'
 import { Fiber, FiberRoot } from './ReactInternalType'
-import { HostComponent, HostRoot } from './ReactWorkTags'
+import { FunctionComponent, HostComponent, HostRoot } from './ReactWorkTags'
 
 function isHostParent(fiber: Fiber): boolean {
   return [HostRoot, HostComponent].includes(fiber.tag)
@@ -47,6 +47,9 @@ function commitReconciliationEffects(finishedWork: Fiber) {
 
 function commitMutationEffectsOnFiber(finishedWork: Fiber, root: FiberRoot) {
   switch (finishedWork.tag) {
+    case FunctionComponent:
+      recursivelyTraverseMutationEffects(root, finishedWork)
+      commitReconciliationEffects(finishedWork)
     case HostRoot:
       recursivelyTraverseMutationEffects(root, finishedWork)
       return
