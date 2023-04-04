@@ -2,7 +2,7 @@ const path = require('path')
 
 /** @type {import("webpack").Configuration}  */
 module.exports = {
-  entry: './example/index.js',
+  entry: './example/index',
   output: {
     path: path.resolve(__dirname, 'dist'),
     clean: true,
@@ -28,6 +28,10 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.(c|le)ss$/,
+        use: ['style-loader', 'css-loader', 'less-loader']
+      }
     ],
   },
 }

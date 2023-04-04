@@ -1,9 +1,23 @@
+import { getPropertyInfo } from './ReactDOMProperty'
+
 function createHTMLElement(type: string): HTMLElement {
   return document.createElement(type)
 }
 
 function setTextContent(domElement: HTMLElement, text: string): void {
   domElement.textContent = text
+}
+
+function setValueForProperty(node: HTMLElement, name: string, value: any) {
+  const propertyInfo = getPropertyInfo(name)
+  if (propertyInfo !== null) {
+    const { attributeName } = propertyInfo
+    // if (value === null) {
+    //   node.removeAttribute(attributeName)
+    //   return
+    // }
+    node.setAttribute(attributeName, value)
+  }
 }
 
 function setProp(
@@ -17,6 +31,8 @@ function setProp(
     case 'children':
       setTextContent(domElement, value)
       break
+    default:
+      setValueForProperty(domElement, key, value)
   }
 }
 
