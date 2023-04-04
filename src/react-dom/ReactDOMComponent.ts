@@ -4,6 +4,16 @@ function createHTMLElement(type: string): HTMLElement {
   return document.createElement(type)
 }
 
+function setValueForStyles(node: HTMLElement, styles: any) {
+  const style = node.style
+  for (let styleName in styles) {
+    const value = styles[styleName]
+    if (typeof value === 'number' && value !== 0) {
+      style[styleName] = value + 'px'
+    }
+  }
+}
+
 function setTextContent(domElement: HTMLElement, text: string): void {
   domElement.textContent = text
 }
@@ -28,6 +38,9 @@ function setProp(
   props: any
 ) {
   switch (key) {
+    case 'style':
+      setValueForStyles(domElement, value)
+      break
     case 'children':
       setTextContent(domElement, value)
       break

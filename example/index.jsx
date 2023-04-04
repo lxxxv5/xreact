@@ -5,7 +5,11 @@ import './index.less'
 
 class App extends React.Component {
   render() {
-    return <div className="title">888</div>
+    return (
+      <div className="title" style={{ fontSize: 18 }}>
+        888
+      </div>
+    )
   }
 }
 
