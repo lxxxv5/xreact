@@ -11,7 +11,17 @@ import {
   IndeterminateComponent,
 } from './ReactWorkTags'
 
-// function appendAllChildren(parent: Instance, workInProgress: Fiber) {}
+function appendInitialChild(parentInstance: HTMLElement, child: HTMLElement) {
+  parentInstance.appendChild(child)
+}
+
+function appendAllChildren(parent: HTMLElement, workInProgress: Fiber) {
+  let node = workInProgress.child
+  while (node !== null) {
+    appendInitialChild(parent, node.stateNode)
+    node = node.sibling
+  }
+}
 
 function completeWork(
   current: Fiber | null,
@@ -27,7 +37,7 @@ function completeWork(
     case HostComponent:
       const type = workInProgress.type
       const instance = createInstance(type)
-      //   appendAllChildren(instance, workInProgress)
+      appendAllChildren(instance, workInProgress)
       workInProgress.stateNode = instance
       finalizeInitialChildren(instance, type, newProps)
       return null

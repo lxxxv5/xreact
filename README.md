@@ -4,10 +4,11 @@ the mini react
 
 todo list
 
+- [x] ClassComponent Props
+- [x] ClassComponent State
+- [x] HostComponent List
 - [ ] HostComponent onClick
-- [ ] ClassComponent Props
-- [ ] ClassComponent State
-- [ ] HostComponent List
+- [ ] ClassComponent setState
 - [ ] ReactDiff
 - [ ] FunctionComponent useReducer
 - [ ] FunctionComponent useRef

@@ -19,6 +19,25 @@ function createChildReconciler(shouldTrackSideEffects: boolean) {
     return created
   }
 
+  function reconcileChildrenArray(
+    returnFiber: Fiber,
+    newChildren: any[]
+  ): Fiber {
+    let resultingFirstFiber: Fiber = null
+    let previousNewFiber: Fiber = null
+    for (let newIdx = 0; newIdx < newChildren.length; newIdx++) {
+      const newFiber = createFiberFromElement(newChildren[newIdx])
+      newFiber.return = returnFiber
+      if (previousNewFiber === null) {
+        resultingFirstFiber = newFiber
+      } else {
+        previousNewFiber.sibling = newFiber
+      }
+      previousNewFiber = newFiber
+    }
+    return resultingFirstFiber
+  }
+
   function placeSingleChild(newFiber: Fiber): Fiber {
     if (shouldTrackSideEffects && newFiber.alternate === null) {
       newFiber.flags |= Placement | PlacementDEV
@@ -32,6 +51,9 @@ function createChildReconciler(shouldTrackSideEffects: boolean) {
     newChild: any
   ): Fiber | null {
     if (typeof newChild === 'object' && newChild !== null) {
+      if (Array.isArray(newChild)) {
+        return reconcileChildrenArray(returnFiber, newChild)
+      }
       return placeSingleChild(
         reconcileSingleElement(returnFiber, currentFirstChild, newChild)
       )

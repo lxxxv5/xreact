@@ -28,6 +28,7 @@ function appendChildToContainer(parent: HTMLElement, stateNode: HTMLElement) {
 
 function insertOrAppendPlacementNodeIntoContainer(
   node: Fiber,
+  before: HTMLElement,
   parent: HTMLElement
 ) {
   const tag = node.tag
@@ -35,7 +36,7 @@ function insertOrAppendPlacementNodeIntoContainer(
   if (isHost) {
     appendChildToContainer(parent, node.stateNode)
   } else {
-    insertOrAppendPlacementNodeIntoContainer(node.child, parent)
+    insertOrAppendPlacementNodeIntoContainer(node.child, before, parent)
   }
 }
 
@@ -44,7 +45,7 @@ function commitPlacement(finishedWork: Fiber): void {
   switch (parentFiber.tag) {
     case HostRoot:
       const parent = (parentFiber.stateNode as FiberRoot).containerInfo
-      insertOrAppendPlacementNodeIntoContainer(finishedWork, parent)
+      insertOrAppendPlacementNodeIntoContainer(finishedWork, null, parent)
       break
   }
 }

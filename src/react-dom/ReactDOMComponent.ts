@@ -42,7 +42,9 @@ function setProp(
       setValueForStyles(domElement, value)
       break
     case 'children':
-      setTextContent(domElement, value)
+      if (typeof value === 'string') {
+        setTextContent(domElement, value)
+      }
       break
     default:
       setValueForProperty(domElement, key, value)
