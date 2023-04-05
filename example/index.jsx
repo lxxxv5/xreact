@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom'
 
 import './index.less'
 
+function LiItem({ toolName }) {
+  return <li>{toolName}</li>
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -13,7 +17,7 @@ class App extends React.Component {
     return (
       <ul className="title" style={{ fontSize: 18 }}>
         {tools.map(item => (
-          <li>{item}</li>
+          <LiItem toolName={item} />
         ))}
       </ul>
     )

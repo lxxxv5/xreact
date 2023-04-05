@@ -18,7 +18,24 @@ function appendInitialChild(parentInstance: HTMLElement, child: HTMLElement) {
 function appendAllChildren(parent: HTMLElement, workInProgress: Fiber) {
   let node = workInProgress.child
   while (node !== null) {
-    appendInitialChild(parent, node.stateNode)
+    if (node.tag === HostComponent) {
+      appendInitialChild(parent, node.stateNode)
+    } else {
+      node = node.child
+      continue
+    }
+
+    if (node === workInProgress) {
+      return
+    }
+
+    while (node.sibling === null) {
+      if (node.return === null || node === workInProgress) {
+        return
+      }
+      node = node.return
+    }
+
     node = node.sibling
   }
 }
