@@ -36,7 +36,12 @@ function insertOrAppendPlacementNodeIntoContainer(
   if (isHost) {
     appendChildToContainer(parent, node.stateNode)
   } else {
-    insertOrAppendPlacementNodeIntoContainer(node.child, before, parent)
+    let child = node.child
+
+    while (child !== null) {
+      insertOrAppendPlacementNodeIntoContainer(child, before, parent)
+      child = child.sibling
+    }
   }
 }
 
@@ -82,8 +87,9 @@ function recursivelyTraverseMutationEffects(
   parentFiber: Fiber
 ) {
   let child = parentFiber.child
-  if (child) {
+  while (child !== null) {
     commitMutationEffectsOnFiber(child, root)
+    child = child.sibling
   }
 }
 

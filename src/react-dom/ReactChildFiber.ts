@@ -1,3 +1,4 @@
+import { REACT_FRAGMENT_TYPE } from '../shared/ReactSymbols'
 import { createFiberFromElement } from './ReactFiber'
 import { Placement, PlacementDEV } from './ReactFiberFlags'
 import { Fiber } from './ReactInternalType'
@@ -50,6 +51,15 @@ function createChildReconciler(shouldTrackSideEffects: boolean) {
     currentFirstChild: Fiber | null,
     newChild: any
   ): Fiber | null {
+    const isTopLevelFragment =
+      typeof newChild === 'object' &&
+      newChild !== null &&
+      newChild.type === REACT_FRAGMENT_TYPE
+
+    if (isTopLevelFragment) {
+      newChild = newChild.props.children
+    }
+
     if (typeof newChild === 'object' && newChild !== null) {
       if (Array.isArray(newChild)) {
         return reconcileChildrenArray(returnFiber, newChild)

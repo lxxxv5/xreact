@@ -1,3 +1,4 @@
+import { REACT_FRAGMENT_TYPE } from '../shared/ReactSymbols'
 import { Component } from './ReactBaseClasses'
 import { ReactElement } from './ReactElement'
 
@@ -15,6 +16,6 @@ const createElement = (type, config, children) => {
   return ReactElement(type, props)
 }
 
-export { createElement, Component }
+export { createElement, Component, REACT_FRAGMENT_TYPE as Fragment }
 
-export default { createElement, Component }
+export default { createElement, Component, Fragment: REACT_FRAGMENT_TYPE }

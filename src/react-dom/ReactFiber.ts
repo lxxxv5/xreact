@@ -1,7 +1,9 @@
 import { ReactElementType } from '../shared/ReactElementType'
+import { REACT_FRAGMENT_TYPE } from '../shared/ReactSymbols'
 import { Fiber } from './ReactInternalType'
 import {
   ClassComponent,
+  Fragment,
   HostComponent,
   IndeterminateComponent,
 } from './ReactWorkTags'
@@ -32,6 +34,11 @@ function createHostRootFiber(tag): Fiber {
   return createFiber(tag, null)
 }
 
+export function createFiberFromFragment(elements: any[]): Fiber {
+  const fiber = createFiber(Fragment, elements)
+  return fiber
+}
+
 function createWorkInProgress(current: Fiber, pendingProps: any) {
   const workInProgress = createFiber(current.tag, pendingProps)
   workInProgress.stateNode = current.stateNode
@@ -48,6 +55,11 @@ function createFiberFromTypeAndProps(type: any, pendingProps: any): Fiber {
     fiberTag = ClassComponent
   } else if (typeof type === 'string') {
     fiberTag = HostComponent
+  } else {
+    switch (type) {
+      case REACT_FRAGMENT_TYPE:
+        return createFiberFromFragment(pendingProps.children)
+    }
   }
   const fiber = createFiber(fiberTag, pendingProps)
   fiber.type = type
