@@ -10,7 +10,11 @@ todo list
 - [x] React.Fragment
 - [ ] HostComponent onClick
 - [ ] ClassComponent setState
+- [ ] createContext
+- [ ] createRef
 - [ ] ReactDiff
+- [ ] ClassComponent componentDidMount
+- [ ] PureComponent
 - [ ] FunctionComponent useReducer
 - [ ] FunctionComponent useRef
 - [ ] FunctionComponent useState
