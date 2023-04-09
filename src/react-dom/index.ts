@@ -1,3 +1,4 @@
+import { listenToAllSupportedEvents } from '../react-event/DOMPluginEventSystem'
 import { createUpdate } from './ReactFiberClassUpdate'
 import { createFiberRoot } from './ReactFiberRoot'
 import { performSyncWorkOnRoot } from './ReactFiberWorkLoop'
@@ -22,6 +23,9 @@ function updateContainer(element, container) {
 function createRootFromDOMContainer(container, children) {
   const root = createContainer(container, LegacyRoot)
   updateContainer(children, root)
+
+  listenToAllSupportedEvents(container)
+
   performSyncWorkOnRoot(root)
   return root
 }
