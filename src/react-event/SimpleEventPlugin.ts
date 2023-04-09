@@ -1,4 +1,5 @@
 import { DOMEventName } from './DOMEventNames'
+import { topLevelEventsToReactNames } from './DOMEventProperties'
 import { registerTwoPhaseEvent } from './EventRegistry'
 
 const simpleEventPluginEvents: DOMEventName[] = [
@@ -9,7 +10,7 @@ const simpleEventPluginEvents: DOMEventName[] = [
 ]
 
 function registerSimpleEvent(domEventName: DOMEventName, reactName: string) {
-  // topLevelEventsToReactNames.set(domEventName, reactName);
+  topLevelEventsToReactNames.set(domEventName, reactName)
   registerTwoPhaseEvent(reactName, [domEventName])
 }
 

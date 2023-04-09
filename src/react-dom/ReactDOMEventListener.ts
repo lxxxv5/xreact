@@ -1,15 +1,36 @@
 import { DOMEventName } from '../react-event/DOMEventNames'
 import { dispatchEventForPluginEventSystem } from '../react-event/DOMPluginEventSystem'
+import { getClosestInstanceFromNode } from './ReactDOMComponentTree'
 import { Fiber } from './ReactInternalType'
 
-export let return_targetInst: null | Fiber = null
+let return_targetInst: null | Fiber = null
+
+function getEventTarget(nativeEvent: any) {
+  return nativeEvent.target || nativeEvent.srcElement || window
+}
+
+function findInstanceBlockingEvent(nativeEvent: any) {
+  return_targetInst = null
+
+  const nativeEventTarget = getEventTarget(nativeEvent)
+
+  let targetInst = getClosestInstanceFromNode(nativeEventTarget)
+
+  return_targetInst = targetInst
+}
 
 function dispatchEvent(
   domEventName: DOMEventName,
   targetContainer: EventTarget,
   nativeEvent: any
 ) {
-  dispatchEventForPluginEventSystem(domEventName, targetContainer, nativeEvent)
+  findInstanceBlockingEvent(nativeEvent)
+  dispatchEventForPluginEventSystem(
+    domEventName,
+    targetContainer,
+    nativeEvent,
+    return_targetInst
+  )
 }
 
 function createEventListenerWrapperWithPriority(
@@ -20,4 +41,4 @@ function createEventListenerWrapperWithPriority(
   return listenerWrapper.bind(null, domEventName, targetContainer)
 }
 
-export { createEventListenerWrapperWithPriority }
+export { createEventListenerWrapperWithPriority, getEventTarget }

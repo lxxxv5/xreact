@@ -53,7 +53,7 @@ function completeWork(
       return null
     case HostComponent:
       const type = workInProgress.type
-      const instance = createInstance(type)
+      const instance = createInstance(type, newProps, workInProgress)
       appendAllChildren(instance, workInProgress)
       workInProgress.stateNode = instance
       finalizeInitialChildren(instance, type, newProps)

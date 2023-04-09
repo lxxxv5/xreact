@@ -27,9 +27,16 @@ class App extends React.Component {
   //     ],
   //   }
   // }
+  handleClick() {
+    console.log('hello xreact!')
+  }
   render() {
     // const { tools } = this.state
-    return <div className="title">xreact</div>
+    return (
+      <div className="title" onClick={this.handleClick}>
+        xreact
+      </div>
+    )
     // return (
     //   <>
     //     {tools.map(item => (
