@@ -9,6 +9,7 @@ todo list
 - [x] HostComponent List
 - [x] React.Fragment
 - [ ] HostComponent onClick
+- [ ] HostComponent nested onClick
 - [ ] ClassComponent setState
 - [ ] createContext
 - [ ] createRef
